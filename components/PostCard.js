@@ -18,7 +18,6 @@ export default function PostCard({ post, name }) {
             href={post.link}
             sx={(theme) => ({
                 height: '100%',
-                overflow: 'hidden',
                 position: 'relative',
                 backgroundColor: theme.colors.dark[5],
                 transition: 'all 0.15s ease-in-out 0s',
@@ -39,16 +38,17 @@ export default function PostCard({ post, name }) {
                 {name}
             </Title>
             <Text
-                px="xs"
+                px="xl"
                 mt="xs"
-                ml="-xs"
+                ml="-xl"
                 size="xs"
                 weight="bold"
                 sx={(theme) => ({
                     lineHeight: 1.8,
                     display: 'inline-block',
                     color: theme.colors.grape[5],
-                    borderRadius: theme.radius.xl,
+                    borderTopRightRadius: theme.radius.xl,
+                    borderBottomRightRadius: theme.radius.xl,
                     backgroundColor: theme.colors.dark[6],
                 })}
             >
@@ -63,18 +63,6 @@ export default function PostCard({ post, name }) {
             >
                 {post.title}
             </Title>
-            <Box
-                sx={(theme) => ({
-                    height: 8,
-                    width: 16,
-                    borderTopRightRadius: 4,
-                    borderBottomRightRadius: 4,
-                    backgroundColor: theme.colors.dark[6],
-                    position: 'absolute',
-                    top: 27,
-                    left: 0,
-                })}
-            />
         </Paper>
     )
 }

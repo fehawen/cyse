@@ -28,9 +28,8 @@ import {
 } from '@mantine/core'
 import {
     AlertCircle,
+    ArrowsShuffle,
     BrandGithub,
-    ChevronLeft,
-    ChevronRight,
     RotateDot,
     Rss
 } from 'tabler-icons-react'
@@ -59,24 +58,6 @@ export default function Index() {
             setPosts(data.posts)
         }
     }, [data])
-
-    function viewPrev() {
-        const index = sites.findIndex((site) => site.id === selected.id)
-        const prev = index <= 0
-            ? sites[sites.length - 1]
-            : sites[index - 1]
-
-        setSelected(prev)
-    }
-
-    function viewNext() {
-        const index = sites.findIndex((site) => site.id === selected.id)
-        const next = index >= sites.length - 1
-            ? sites[0]
-            : sites[index + 1]
-
-        setSelected(next)
-    }
 
     function renderContent() {
         if (error) {
@@ -209,7 +190,10 @@ export default function Index() {
                                     site={site}
                                     error={false}
                                     active={Boolean(data) && site.id === selected.id}
-                                    onClick={(s) => setSelected(s)}
+                                    onClick={(s) => {
+                                        setSelected(s)
+                                        if (opened) setOpened(false)
+                                    }}
                                 />
                             ))}
                         </Navbar.Section>
@@ -269,41 +253,24 @@ export default function Index() {
                 }
                 sx={(theme) => ({ backgroundColor: theme.colors.dark[6] })}>
                 {renderContent()}
-                <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-                    <Affix position={{ bottom: 10, right: 10 }}>
-                        <Group
-                            p={5}
-                            spacing="md"
-                            sx={(theme) => ({
-                                backgroundColor: 'rgba(40, 36, 61, 0.6)',
-                                borderRadius: theme.radius.xl,
-                            })}
-                        >
+                {(!error && !opened && data) && (
+                    <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
+                        <Affix position={{ bottom: 16, right: 16 }}>
                             <ActionIcon
-                                radius="xl"
+                                size="xl"
+                                radius="lg"
                                 color="dark"
-                                onClick={viewPrev}
+                                onClick={() => setSelected(randomFeed())}
                                 sx={(theme) => ({
-                                    color: theme.colors.dark[1],
-                                    backgroundColor: 'rgba(53, 49, 78, 0.3)',
+                                    color: theme.colors.green[5],
+                                    backgroundColor: 'rgba(40, 36, 61, 0.75)',
                                 })}
                             >
-                                <ChevronLeft size={18} />
+                                <ArrowsShuffle size={20} />
                             </ActionIcon>
-                            <ActionIcon
-                                radius="xl"
-                                color="dark"
-                                onClick={viewNext}
-                                sx={(theme) => ({
-                                    color: theme.colors.dark[1],
-                                    backgroundColor: 'rgba(53, 49, 78, 0.3)',
-                                })}
-                            >
-                                <ChevronRight size={18} />
-                            </ActionIcon>
-                        </Group>
-                    </Affix>
-                </MediaQuery>
+                        </Affix>
+                    </MediaQuery>
+                )}
             </AppShell>
         </>
     )
