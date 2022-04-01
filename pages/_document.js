@@ -14,11 +14,11 @@ export default class _Document extends Document {
                     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
                     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
                     <link rel="manifest" href="/site.webmanifest" />
-                    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#121c2a" />
+                    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#312d4b" />
+                    <meta name="msapplication-TileColor" content="#3d3759" />
                     <meta name="apple-mobile-web-app-title" content="CySe" />
                     <meta name="application-name" content="CySe" />
-                    <meta name="msapplication-TileColor" content="#121c2a" />
-                    <meta name="theme-color" content="#ffffff" />
+                    <meta name="theme-color" content="#28243d" />
                 </Head>
                 <body>
                     <Main />
