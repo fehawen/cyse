@@ -16,6 +16,7 @@ export default class _Document extends Document {
                     <link rel="manifest" href="/site.webmanifest" />
                     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#312d4b" />
                     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+                    <meta name="apple-mobile-web-app-capable" content="yes" />
                     <meta name="msapplication-TileColor" content="#3d3759" />
                     <meta name="apple-mobile-web-app-title" content="CySe" />
                     <meta name="application-name" content="CySe" />
