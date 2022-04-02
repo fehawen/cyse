@@ -151,7 +151,7 @@ export default function Index() {
                 navbarOffsetBreakpoint="sm"
                 navbar={
                     <Navbar
-                        p="md"
+                        p="sm"
                         hidden={!opened}
                         hiddenBreakpoint="sm"
                         sx={(theme) => ({
@@ -190,7 +190,7 @@ export default function Index() {
                             offsetScrollbars
                             scrollbarSize={5}
                             component={ScrollArea}
-                            mx="-md"
+                            mx="-sm"
                             px="xs"
                             pl={0}
                         >
@@ -211,8 +211,8 @@ export default function Index() {
                 }
                 header={
                     <Header
-                        p="md"
-                        height={70}
+                        p="sm"
+                        height={60}
                         sx={(theme) => ({
                             backgroundColor: theme.colors.dark[6],
                             border: 0,
@@ -221,7 +221,7 @@ export default function Index() {
                         <Box style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
                             <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
                                 <Burger
-                                    mr="sm"
+                                    mr="md"
                                     size="sm"
                                     opened={opened}
                                     onClick={() => setOpened((prev) => !prev)}
@@ -237,7 +237,7 @@ export default function Index() {
                                     flexGrow: 1,
                                 }}
                             >
-                                <Image src="/cyse.svg" alt="CySe Logo" width={30} height={30} />
+                                <Image src="/cyse.svg" alt="CySe Logo" width={35} height={35} />
                                 <ActionIcon
                                     size="lg"
                                     radius="xl"

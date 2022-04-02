@@ -28,7 +28,7 @@ export default function NavbarItem({ site, active, error, onClick }) {
             <Group align="center">
                 <Text
                     inline
-                    pl={4}
+                    pl={2}
                     sx={(theme) => ({
                         color: error
                             ? theme.colors.red[5]
