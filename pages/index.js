@@ -151,14 +151,14 @@ export default function Index() {
                 navbarOffsetBreakpoint="sm"
                 navbar={
                     <Navbar
-                        p="xs"
+                        p="md"
                         hidden={!opened}
                         hiddenBreakpoint="sm"
                         sx={(theme) => ({
                             border: 0,
                             backgroundColor: theme.colors.dark[6],
                         })}
-                        width={{ sm: 250 }}
+                        width={{ sm: 280 }}
                     >
                         <LoadingOverlay
                             visible={!data}
@@ -190,7 +190,7 @@ export default function Index() {
                             offsetScrollbars
                             scrollbarSize={5}
                             component={ScrollArea}
-                            mx="-xs"
+                            mx="-md"
                             px="xs"
                             pl={0}
                         >
@@ -212,7 +212,7 @@ export default function Index() {
                 header={
                     <Header
                         p="md"
-                        height={60}
+                        height={70}
                         sx={(theme) => ({
                             backgroundColor: theme.colors.dark[6],
                             border: 0,
@@ -221,7 +221,7 @@ export default function Index() {
                         <Box style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
                             <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
                                 <Burger
-                                    mr="xl"
+                                    mr="sm"
                                     size="sm"
                                     opened={opened}
                                     onClick={() => setOpened((prev) => !prev)}
@@ -237,7 +237,7 @@ export default function Index() {
                                     flexGrow: 1,
                                 }}
                             >
-                                <Image src="/cyse.svg" alt="CySe Logo" width={40} height={40} />
+                                <Image src="/cyse.svg" alt="CySe Logo" width={30} height={30} />
                                 <ActionIcon
                                     size="lg"
                                     radius="xl"
