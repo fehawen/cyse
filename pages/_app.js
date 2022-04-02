@@ -26,10 +26,7 @@ export default function App(props) {
         <>
             <Head>
                 <title>CySe</title>
-                <meta
-                    name="viewport"
-                    content="minimum-scale=1, initial-scale=1, width=device-width, viewport-fit=cover"
-                />
+                <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
             </Head>
             <MantineProvider
                 withGlobalStyles
