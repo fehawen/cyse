@@ -2,6 +2,7 @@ import useSwr from 'swr'
 import Head from 'next/head'
 import NavbarItem from '../components/NavbarItem'
 import PostCard from '../components/PostCard'
+import useInstallAppPrompt from '../hooks/useInstallAppPrompt'
 import { useEffect, useState } from 'react'
 import {
     ActionIcon,
@@ -21,6 +22,7 @@ import {
     LoadingOverlay,
     MediaQuery,
     Navbar,
+    Paper,
     ScrollArea,
     Text,
     Title,
@@ -30,8 +32,10 @@ import {
     AlertCircle,
     ArrowsShuffle,
     BrandGithub,
+    CloudDownload,
     RotateDot,
-    Rss
+    Rss,
+    X
 } from 'tabler-icons-react'
 import { sites } from '../data/sites'
 
@@ -49,8 +53,10 @@ function sortSites() {
 
 export default function Index() {
     const [posts, setPosts] = useState([])
-    const [selected, setSelected] = useState(randomFeed())
     const [opened, setOpened] = useState(false)
+    const [selected, setSelected] = useState(randomFeed())
+    const [showPrompt, setShowPrompt] = useState(false)
+    const [promptEvent, promptInstall] = useInstallAppPrompt()
     const { data, error } = useSwr(`/api/feed/${selected.id}`, fetcher, options)
 
     useEffect(() => {
@@ -58,6 +64,10 @@ export default function Index() {
             setPosts(data.posts)
         }
     }, [data])
+
+    useEffect(() => {
+        if (promptEvent) setShowPrompt(true)
+    }, [promptEvent])
 
     function renderContent() {
         if (error) {
@@ -78,7 +88,7 @@ export default function Index() {
                         <Box mt="xl">
                             <Button
                                 fullWidth
-                                radius="lg"
+                                radius="xl"
                                 color="dark"
                                 variant="white"
                                 onClick={() => setSelected(randomFeed())}
@@ -253,7 +263,39 @@ export default function Index() {
                 }
                 sx={(theme) => ({ backgroundColor: theme.colors.dark[6] })}>
                 {renderContent()}
-                {(!error && !opened && data) && (
+                {showPrompt && (
+                    <Affix position={{ bottom: 16, right: 16 }}>
+                        <Paper
+                            px="xl"
+                            py="sm"
+                            radius="lg"
+                            shadow="lg"
+                            sx={(theme) => ({
+                                backgroundColor: theme.colors.dark[0],
+                            })}
+                        >
+                            <Group spacing="sm">
+                                <Button
+                                    radius="xl"
+                                    leftIcon={<CloudDownload size={20} />}
+                                    onClick={() => promptInstall()}
+                                >
+                                    Install App
+                                </Button>
+                                <ActionIcon
+                                    size="lg"
+                                    color="red"
+                                    radius="xl"
+                                    variant="filled"
+                                    onClick={() => setShowPrompt(false)}
+                                >
+                                    <X size={20} />
+                                </ActionIcon>
+                            </Group>
+                        </Paper>
+                    </Affix>
+                )}
+                {(!error && !opened && !showPrompt && data) && (
                     <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
                         <Affix position={{ bottom: 16, right: 16 }}>
                             <ActionIcon
