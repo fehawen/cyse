@@ -21,6 +21,7 @@ export default function PostCard({ post, name }) {
                 position: 'relative',
                 backgroundColor: theme.colors.dark[5],
                 transition: 'all 0.15s ease-in-out 0s',
+                userSelect: 'none',
                 cursor: 'pointer',
 
                 '&:hover': {
