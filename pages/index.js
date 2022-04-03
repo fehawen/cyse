@@ -40,7 +40,7 @@ import {
 import { sites } from '../data/sites'
 
 const fetcher = (url) => fetch(url).then((res) => res.json())
-const options = { refreshInterval: 900000 }
+const options = { refreshInterval: 300000  }
 
 function randomFeed() {
     const index = Math.floor(Math.random() * (sites.length - 1))
@@ -149,6 +149,7 @@ export default function Index() {
             <AppShell
                 fixed
                 navbarOffsetBreakpoint="sm"
+                sx={(theme) => ({ backgroundColor: theme.colors.dark[6] })}
                 navbar={
                     <Navbar
                         p="sm"
@@ -261,7 +262,7 @@ export default function Index() {
                         </Box>
                     </Header>
                 }
-                sx={(theme) => ({ backgroundColor: theme.colors.dark[6] })}>
+            >
                 {renderContent()}
                 {showPrompt && (
                     <Affix position={{ bottom: 16, right: 16 }}>
