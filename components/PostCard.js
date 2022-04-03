@@ -39,13 +39,14 @@ export default function PostCard({ post, name }) {
                 {name}
             </Title>
             <Text
-                px="xl"
+                pl="xl"
+                pr="sm"
                 mt="xs"
                 ml="-xl"
                 size="xs"
                 weight="bold"
                 sx={(theme) => ({
-                    lineHeight: 1.8,
+                    lineHeight: 2,
                     display: 'inline-block',
                     color: theme.colors.grape[5],
                     borderTopRightRadius: theme.radius.xl,
