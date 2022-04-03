@@ -143,7 +143,7 @@ export default function Index() {
         <>
             <Head>
                 <title>CySe</title>
-                <meta name="description" content="Cyber Security RSS Feeds" />
+                <meta name="description" content="Cyber Security RSS Feed Headlines" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <AppShell
