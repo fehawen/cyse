@@ -10,7 +10,7 @@ export default function useInstallAppPrompt() {
     useEffect(() => {
         function ready(event) {
             event.preventDefault()
-            setPrompt(event)
+            setPromptEvent(event)
         }
 
         window.addEventListener('beforeinstallprompt', ready)
