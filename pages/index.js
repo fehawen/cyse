@@ -2,7 +2,6 @@ import useSwr from 'swr'
 import Head from 'next/head'
 import NavbarItem from '../components/NavbarItem'
 import PostCard from '../components/PostCard'
-import useInstallAppPrompt from '../hooks/useInstallAppPrompt'
 import { useEffect, useState } from 'react'
 import {
     ActionIcon,
@@ -14,6 +13,7 @@ import {
     Button,
     Center,
     Divider,
+    Global,
     Grid,
     Group,
     Header,
@@ -29,7 +29,7 @@ import {
     ThemeIcon
 } from '@mantine/core'
 import {
-    AlertCircle,
+    AlertTriangle,
     ArrowsShuffle,
     BrandGithub,
     CloudDownload,
@@ -55,8 +55,6 @@ export default function Index() {
     const [posts, setPosts] = useState([])
     const [opened, setOpened] = useState(false)
     const [selected, setSelected] = useState(randomFeed())
-    const [showPrompt, setShowPrompt] = useState(false)
-    const [promptEvent, promptInstall] = useInstallAppPrompt()
     const { data, error } = useSwr(`/api/feed/${selected.id}`, fetcher, options)
 
     useEffect(() => {
@@ -65,10 +63,6 @@ export default function Index() {
         }
     }, [data])
 
-    useEffect(() => {
-        if (promptEvent) setShowPrompt(true)
-    }, [promptEvent])
-
     function renderContent() {
         if (error) {
             return (
@@ -76,21 +70,16 @@ export default function Index() {
                     <Alert
                         p="xl"
                         color="red"
-                        radius="lg"
+                        radius="md"
                         title="Something went wrong"
-                        icon={<AlertCircle size={30} />}
-                        styles={(theme) => ({
-                            light: { backgroundColor: theme.colors.dark[4] },
-                            message: { color: theme.colors.dark[1] }
-                        })}
+                        icon={<AlertTriangle size={30} />}
                     >
                         The selected RSS feed failed to respond.
                         <Box mt="xl">
                             <Button
                                 fullWidth
-                                radius="xl"
+                                radius="md"
                                 color="dark"
-                                variant="white"
                                 onClick={() => setSelected(randomFeed())}
                             >
                                 Try another one
@@ -102,7 +91,7 @@ export default function Index() {
         } else if (!data) {
             return (
                 <Center style={{ height: '100%' }}>
-                    <Loader size="xl" variant="dots" color="white" />
+                    <Loader size="xl" variant="dots" color="purple" />
                 </Center>
             )
         } else {
@@ -125,12 +114,10 @@ export default function Index() {
                 <Center style={{ height: '100%' }}>
                     <Alert
                         p="xl"
-                        radius="lg"
+                        radius="md"
+                        color="grape"
+                        icon={<Rss size={30} strokeWidth={3} />}
                         title={selected.name}
-                        styles={(theme) => ({
-                            light: { color: theme.colors.dark[0], backgroundColor: theme.colors.dark[4] },
-                            message: { color: theme.colors.dark[1] }
-                        })}
                     >
                         No posts available right now.
                     </Alert>
@@ -142,48 +129,44 @@ export default function Index() {
     return (
         <>
             <Head>
-                <title>CySe</title>
-                <meta name="description" content="Cyber Security RSS Feed Headlines" />
+                <title>CySe | {selected ? selected.name : 'RSS Feed'}</title>
+                <meta name="description" content="CySe - A gathering of Cyber Security news from various RSS feeds" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+            <Global
+                styles={(theme) => ({
+                    body: {
+                        color: theme.colors.gray[9]
+                    }
+                })}
+            />
             <AppShell
                 fixed
                 navbarOffsetBreakpoint="sm"
-                sx={(theme) => ({ backgroundColor: theme.colors.dark[6] })}
                 navbar={
                     <Navbar
-                        p="sm"
+                        pl="sm"
                         hidden={!opened}
                         hiddenBreakpoint="sm"
-                        sx={(theme) => ({
-                            border: 0,
-                            backgroundColor: theme.colors.dark[6],
-                        })}
+                        sx={(theme) => ({ border: 0 })}
                         width={{ sm: 280 }}
                     >
                         <LoadingOverlay
                             visible={!data}
                             loader={<div />}
-                            sx={(theme) => ({ borderTopRightRadius: theme.radius.lg })}
+                            sx={(theme) => ({ borderTopRightRadius: theme.radius.md })}
                         />
                         <Divider
                             my="xs"
                             label={
-                                <>
-                                    <ThemeIcon
-                                        radius="xl"
-                                        color="dark"
-                                        variant="light"
-                                        sx={(theme) => ({
-                                            backgroundColor: theme.colors.dark[4],
-                                        })}
-                                    >
-                                        <Rss size={12} strokeWidth={3} />
-                                    </ThemeIcon>
-                                    <Box ml="xs" sx={{ fontWeight: 'bold' }}>
-                                        RSS Feeds
-                                    </Box>
-                                </>
+                                <Title
+                                    order={4}
+                                    sx={(theme) => ({
+                                        color: theme.colors.gray[9]
+                                    })}
+                                >
+                                    RSS Feeds
+                                </Title>
                             }
                         />
                         <Navbar.Section
@@ -191,9 +174,6 @@ export default function Index() {
                             offsetScrollbars
                             scrollbarSize={5}
                             component={ScrollArea}
-                            mx="-sm"
-                            px="xs"
-                            pl={0}
                         >
                             {sortSites().map((site) => (
                                 <NavbarItem
@@ -214,102 +194,53 @@ export default function Index() {
                     <Header
                         p="sm"
                         height={60}
-                        sx={(theme) => ({
-                            backgroundColor: theme.colors.dark[6],
-                            border: 0,
-                        })}
+                        sx={(theme) => ({ border: 0 })}
                     >
-                        <Box style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+                        <Box
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                position: 'relative',
+                                flexGrow: 1,
+                            }}
+                        >
                             <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
                                 <Burger
-                                    mr="md"
                                     size="sm"
                                     opened={opened}
                                     onClick={() => setOpened((prev) => !prev)}
                                 />
                             </MediaQuery>
-
-                            <Box
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'space-between',
-                                    position: 'relative',
-                                    flexGrow: 1,
-                                }}
+                            <Image src="/cyse.svg" alt="CySe Logo" height={38} />
+                            <ActionIcon
+                                size="lg"
+                                radius="xl"
+                                color="gray"
+                                variant="light"
+                                component="a"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="https://github.com/fehawen/cyse"
                             >
-                                <Image src="/cyse.svg" alt="CySe Logo" width={35} height={35} />
-                                <ActionIcon
-                                    size="lg"
-                                    radius="xl"
-                                    variant="transparent"
-                                    component="a"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    href="https://github.com/fehawen/cyse"
-                                    sx={(theme) => ({
-                                        transition: 'all 0.1s ease-in-out 0s',
-                                        color: theme.colors.dark[2],
-
-                                        '&:hover': {
-                                            backgroundColor: theme.colors.dark[4],
-                                        }
-                                    })}
-                                >
-                                    <BrandGithub size={20} />
-                                </ActionIcon>
-                            </Box>
+                                <BrandGithub size={20} />
+                            </ActionIcon>
                         </Box>
                     </Header>
                 }
             >
                 {renderContent()}
-                {showPrompt && (
-                    <Affix position={{ bottom: 16, right: 16 }}>
-                        <Paper
-                            px="xl"
-                            py="sm"
-                            radius="lg"
-                            shadow="lg"
-                            sx={(theme) => ({
-                                backgroundColor: theme.colors.dark[0],
-                            })}
-                        >
-                            <Group spacing="sm">
-                                <Button
-                                    radius="xl"
-                                    leftIcon={<CloudDownload size={20} />}
-                                    onClick={() => promptInstall()}
-                                >
-                                    Install App
-                                </Button>
-                                <ActionIcon
-                                    size="lg"
-                                    color="red"
-                                    radius="xl"
-                                    variant="filled"
-                                    onClick={() => setShowPrompt(false)}
-                                >
-                                    <X size={20} />
-                                </ActionIcon>
-                            </Group>
-                        </Paper>
-                    </Affix>
-                )}
-                {(!error && !opened && !showPrompt && data) && (
+                {(!error && !opened && data) && (
                     <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-                        <Affix position={{ bottom: 16, right: 16 }}>
+                        <Affix position={{ bottom: 24, right: 24 }}>
                             <ActionIcon
                                 size="xl"
-                                radius="lg"
-                                color="dark"
+                                radius="xl"
+                                color="grape"
+                                variant="filled"
                                 onClick={() => setSelected(randomFeed())}
-                                sx={(theme) => ({
-                                    color: theme.colors.green[5],
-                                    backgroundColor: 'rgba(40, 36, 61, 0.75)',
-                                })}
                             >
-                                <ArrowsShuffle size={20} />
+                                <ArrowsShuffle size={20} strokeWidth={2} />
                             </ActionIcon>
                         </Affix>
                     </MediaQuery>

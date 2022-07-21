@@ -45,11 +45,6 @@ export const sites = [
         url: 'https://www.darkreading.com/rss.xml'
     },
     {
-        id: 'full-disclosure',
-        name: 'Full Disclosure',
-        url: 'https://seclists.org/rss/fulldisclosure.rss'
-    },
-    {
         id: 'c4isrnet',
         name: 'C4ISRNET',
         url: 'https://www.c4isrnet.com/arc/outboundfeeds/rss/category/cyber/?outputType=xml'
@@ -70,16 +65,6 @@ export const sites = [
         url: 'http://feeds.feedburner.com/TheHackersNews?format=xml'
     },
     {
-        id: 'kitploit',
-        name: 'KitPloit',
-        url: 'http://feeds.feedburner.com/PentestTools?format=xml'
-    },
-    {
-        id: 'da-vinci-forensics',
-        name: 'Da Vinci Forensics',
-        url: 'https://davinciforensics.co.za/cybersecurity/feed/'
-    },
-    {
         id: 'graham-cluley',
         name: 'Graham Cluley',
         url: 'https://www.grahamcluley.com/feed/'
@@ -93,5 +78,35 @@ export const sites = [
         id: 'cso-online',
         name: 'CSO Online',
         url: 'https://www.csoonline.com/in/index.rss'
+    },
+    {
+        id: 'help-net-security',
+        name: 'Help Net Security',
+        url: 'https://www.helpnetsecurity.com/feed/'
+    },
+    {
+        id: 'hack-read',
+        name: 'HackRead',
+        url: 'https://www.hackread.com/feed/'
+    },
+    {
+        id: 'the-cyber-wire',
+        name: 'The Cyber Wire',
+        url: 'https://thecyberwire.com/feeds/rss.xml'
+    },
+    {
+        id: 'cyber-defense-magazine',
+        name: 'Cyber Defense Magazine',
+        url: 'https://www.cyberdefensemagazine.com/feed/'
+    },
+    {
+        id: 'hacker-combat',
+        name: 'Hacker Combat',
+        url: 'https://hackercombat.com/feed/'
+    },
+    {
+        id: 'threat-watch',
+        name: 'Threat Watch',
+        url: 'https://www.binarydefense.com/threat_watch/feed/'
     },
 ]

@@ -1,70 +1,79 @@
 import { DateTime } from 'luxon'
-import { Box, Group, Paper, Text, Title } from '@mantine/core'
-import { Clock } from 'tabler-icons-react'
+import { Paper, Text, Title } from '@mantine/core'
+import { Clock, Rss } from 'tabler-icons-react'
+
+function hmtlStringToText(str, paragraph = false) {
+    const parser = new DOMParser()
+    const doc = parser.parseFromString(str, 'text/html')
+
+    let txt = (doc.body.textContent || doc.body.innerText || '').trim()
+    if (paragraph && !txt.endsWith('.')) txt += '.'
+
+    return txt.length > 280 ? txt.substr(0, 280) + ' [...]' : txt
+}
 
 export default function PostCard({ post, name }) {
     const datestring = DateTime
-        .fromRFC2822(post.published)
+        .fromJSDate(new Date(post.published))
         .toUTC()
-        .toFormat('ccc dd LLL HH:mm')
+        .toFormat('ccc dd LLL')
 
     return (
         <Paper
             p="xl"
-            radius="lg"
+            radius="md"
             component="a"
             target="_blank"
             rel="noopener noreferrer"
             href={post.link}
             sx={(theme) => ({
                 height: '100%',
-                position: 'relative',
-                backgroundColor: theme.colors.dark[5],
+                backgroundColor: theme.colors.gray[1],
                 transition: 'all 0.15s ease-in-out 0s',
                 userSelect: 'none',
                 cursor: 'pointer',
 
                 '&:hover': {
-                    backgroundColor: theme.colors.dark[4],
+                    backgroundColor: theme.colors.gray[2],
                 }
             })}
         >
+            <Text
+                size="xs"
+                weight="bold"
+                sx={(theme) => ({
+                    color: theme.colors.gray[6],
+                })}
+            >
+                {datestring}
+            </Text>
             <Title
                 order={5}
                 sx={(theme) => ({
-                    lineHeight: 1.1,
-                    color: theme.colors.dark[2],
+                    color: theme.colors.grape[6],
                 })}
             >
                 {name}
             </Title>
-            <Text
-                pl="xl"
-                pr="sm"
-                mt="xs"
-                ml="-xl"
-                size="xs"
-                weight="bold"
-                sx={(theme) => ({
-                    lineHeight: 2,
-                    display: 'inline-block',
-                    color: theme.colors.grape[5],
-                    borderTopRightRadius: theme.radius.xl,
-                    borderBottomRightRadius: theme.radius.xl,
-                    backgroundColor: theme.colors.dark[6],
-                })}
-            >
-                {datestring + ' GMT'}
-            </Text>
             <Title
-                mt="sm"
+                mt="lg"
                 order={3}
                 sx={(theme) => ({
-                    lineHeight: 1.1,
+                    lineHeight: 1.25,
+                    color: theme.colors.gray[9],
                 })}
             >
-                {post.title}
+                {hmtlStringToText(post.title)}
             </Title>
+            <Text
+                mt="md"
+                size="sm"
+                sx={(theme) => ({
+                    color: theme.colors.gray[9],
+                })}
+            >
+                {hmtlStringToText(post.description, true)}
+            </Text>
         </Paper>
     )
 }
