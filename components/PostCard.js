@@ -28,13 +28,13 @@ export default function PostCard({ post, name }) {
             href={post.link}
             sx={(theme) => ({
                 height: '100%',
-                backgroundColor: theme.colors.gray[1],
+                backgroundColor: theme.colors.gray[0],
                 transition: 'all 0.15s ease-in-out 0s',
                 userSelect: 'none',
                 cursor: 'pointer',
 
                 '&:hover': {
-                    backgroundColor: theme.colors.gray[2],
+                    backgroundColor: theme.colors.gray[1],
                 }
             })}
         >

@@ -222,7 +222,7 @@ export default function Index() {
                                 size="lg"
                                 radius="xl"
                                 color="gray"
-                                variant="light"
+                                variant="hover"
                                 component="a"
                                 target="_blank"
                                 rel="noopener noreferrer"
