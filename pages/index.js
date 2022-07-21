@@ -212,7 +212,12 @@ export default function Index() {
                                     onClick={() => setOpened((prev) => !prev)}
                                 />
                             </MediaQuery>
-                            <Image src="/cyse.svg" alt="CySe Logo" height={38} />
+                            <Image
+                                src="/cyse.svg"
+                                alt="Logotype for CySe app"
+                                height={38}
+                                width={81}
+                            />
                             <ActionIcon
                                 size="lg"
                                 radius="xl"
