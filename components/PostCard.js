@@ -2,14 +2,21 @@ import { DateTime } from 'luxon'
 import { Paper, Text, Title } from '@mantine/core'
 import { Clock, Rss } from 'tabler-icons-react'
 
-function hmtlStringToText(str, paragraph = false) {
+function parseContent(str, limit = undefined) {
     const parser = new DOMParser()
     const doc = parser.parseFromString(str, 'text/html')
 
-    let txt = (doc.body.textContent || doc.body.innerText || '').trim()
-    if (paragraph && !txt.endsWith('.')) txt += '.'
+    let text = (doc.body.textContent || doc.body.innerText || '')
+        .split(/(\[?((\.{3})|(…))\]?)/)[0]
+        .trim()
 
-    return txt.length > 280 ? txt.substr(0, 280) + ' [...]' : txt
+    if (limit) {
+        const words = text.split(' ')
+        text = words.length > limit ? words.slice(0, limit).join(' ') : text
+        text = (text.endsWith('.') ? text.substr(0, text.length - 1) : text) + ' ...'
+    }
+
+    return text
 }
 
 export default function PostCard({ post, name }) {
@@ -63,7 +70,7 @@ export default function PostCard({ post, name }) {
                     color: theme.colors.gray[9],
                 })}
             >
-                {hmtlStringToText(post.title)}
+                {parseContent(post.title)}
             </Title>
             <Text
                 mt="md"
@@ -72,7 +79,7 @@ export default function PostCard({ post, name }) {
                     color: theme.colors.gray[9],
                 })}
             >
-                {hmtlStringToText(post.description, true)}
+                {parseContent(post.description, 30)}
             </Text>
         </Paper>
     )

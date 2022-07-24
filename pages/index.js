@@ -129,8 +129,12 @@ export default function Index() {
     return (
         <>
             <Head>
-                <title>CySe | {selected ? selected.name : 'RSS Feed'}</title>
+                <title>CySe - Cyber Security RSS Newsfeeds</title>
+                <meta name="og:title" content="CySe - Cyber Security RSS Newsfeeds" />
                 <meta name="description" content="CySe - A gathering of Cyber Security news from various RSS feeds" />
+                <meta name="og:description" content="CySe - A gathering of Cyber Security news from various RSS feeds" />
+                <link data-rh="true" rel="canonical" href="https://www.cyse.app/" />
+                <link data-rh="true" rel="alternate" href="https://www.cyse.app/" hrefLang="x-default" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Global

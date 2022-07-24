@@ -10,16 +10,6 @@ export const sites = [
         url: 'https://nakedsecurity.sophos.com/feed/'
     },
     {
-        id: 'troy-hunt',
-        name: 'Troy Hunt',
-        url: 'http://feeds.feedburner.com/TroyHunt?format=xml'
-    },
-    {
-        id: 'zdnet',
-        name: 'ZDNet',
-        url: 'https://www.zdnet.com/news/rss.xml'
-    },
-    {
         id: 'cisco',
         name: 'Cisco',
         url: 'https://blogs.cisco.com/security/feed'
@@ -62,7 +52,7 @@ export const sites = [
     {
         id: 'the-hacker-news',
         name: 'The Hacker News',
-        url: 'http://feeds.feedburner.com/TheHackersNews?format=xml'
+        url: 'http://feeds.feedburner.com/TheHackersNews'
     },
     {
         id: 'graham-cluley',
@@ -83,11 +73,6 @@ export const sites = [
         id: 'help-net-security',
         name: 'Help Net Security',
         url: 'https://www.helpnetsecurity.com/feed/'
-    },
-    {
-        id: 'hack-read',
-        name: 'HackRead',
-        url: 'https://www.hackread.com/feed/'
     },
     {
         id: 'the-cyber-wire',
